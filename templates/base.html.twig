@@ -2,18 +2,172 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+        <title>
+            
+            
+        {% block title %}Welcome!{% endblock %}</title>
+       
+
+
+
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+      
+        <!-- Favicons -->
+        <link href="{{ asset('assets/img/favicon.png')}}" rel="icon">
+        <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+      
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+      
+        <!-- Vendor CSS Files -->
+        <link href="{{ asset('assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+      
+        <!-- Template Main CSS File -->
+        <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+      
+    
+      </head>
+      
+      <body>
+      
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+          <div class="container d-flex align-items-center">
+      
+            <a href="index.html" class="logo me-auto"><img src="{{ asset('assets/img/logo.jpeg')}}" alt="" class="img-fluid"></a>
+            <h1 class="logo me-auto"><a href="index.html">Emploi ISET</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+      
+            <nav id="navbar" class="navbar order-last order-lg-0">
+              <ul>
+                
+                <li><a href="{{ path('app_etudiant_index') }}">Etudiants</a></li>
+                <li><a href="pricing.html">Enseignets</a></li>
+                <li><a href="events.html">Classes</a></li>
+                <li><a href="pricing.html">Salles</a></li>
+                <li><a href="pricing.html">Bloc</a></li>
+      
+                <li class="dropdown"><a href="#"><span>Emploi</span> <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    
+                    <li class="dropdown"><a href="#"><span>Emploi de classe</span> <i class="bi bi-chevron-right"></i></a>
+                        <ul>
+                            <li><a href="#">INFO</a></li>
+                            <li><a href="#">MECANIQUE</a></li>
+                            <li><a href="#">ELECTRIQUE</a></li>
+                            <li><a href="#">GESTION</a></li>                        
+                          </ul> 
+                    <li class="dropdown"><a href="#"><span>Emploi de salle</span> <i class="bi bi-chevron-right"></i></a>
+                      <ul>
+                        <li><a href="#">salles des TPs</a></li>
+                        <li><a href="#">salle des cours</a></li>
+                        
+                    
+                      </ul>
+                    </li>
+                    <li class="dropdown"><a href="#"><span>Emploi d'Enseignant</span> <i class="bi bi-chevron-right"></i></a>
+                        <ul><!-- =============== liste des enseigents ============-->
+                          <li><a href="#">A</a></li>
+                          <li><a href="#">B</a></li>
+                          <li><a href="#">C</a></li>
+                          <li><a href="#">D</a></li>
+                      
+                        </ul>
+                      </li>
+                    <li><a href="#">Drop Down 2</a></li>
+                    
+                  </ul>
+                </li>
+               
+              </ul>
+              <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+      
+            <a href="courses.html" class="get-started-btn">Mon Emploi</a>
+      
+          </div>
+        </header><!-- End Header -->
+      
+        <!-- ======= Hero Section ======= -->
+        <section id="hero" class="d-flex justify-content-center align-items-center">
+          <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+            <h1>Learning Today,<br>Leading Tomorrow</h1>
+            <a href="courses.html" class="btn-get-started">Mon Emploi</a>
+          </div>
+        </section><!-- End Hero -->
+      
+
+
+
+
+
+
+        <main id="main">
+            {% block body %}
+            
+            {% endblock %}
+          
+        </main><!-- End #main -->
+         
+          
+
+
+
+
+        
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+      
+         
+      
+          <div class="container d-md-flex py-4">
+      
+            <div class="me-md-auto text-center text-md-start">
+              <div class="copyright">
+                &copy; Copyright <strong><span>Emploi ISET</span></strong>. All Rights Reserved
+              </div>
+              <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+        </footer><!-- End Footer -->
+      
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      
+        <!-- Vendor JS Files -->
+        <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+        <script src="{{ asset('assets/vendor/aos/aos.js')}}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+        <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
+      
+        <!-- Template Main JS File -->
+        <script src="{{ asset('assets/js/main.js')}}"></script>
+      
+      </body>
+      
+      </html>
+
+
