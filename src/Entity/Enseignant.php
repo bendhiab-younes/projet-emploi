@@ -8,19 +8,25 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EnseignantRepository::class)]
-class Enseignant extends User
+class Enseignant
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToMany(targetEntity: Matiere::class, mappedBy: 'enseignant')]
-    private Collection $matieres;
+    #[ORM\Column(length: 255)]
+    private ?string $specialite = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $departement = null;
+
+    #[ORM\ManyToMany(targetEntity: Matiere::class, inversedBy: 'enseignants')]
+    private Collection $matiers;
 
     public function __construct()
     {
-        $this->matieres = new ArrayCollection();
+        $this->matiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -28,29 +34,50 @@ class Enseignant extends User
         return $this->id;
     }
 
+    public function getSpecialite(): ?string
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(string $specialite): self
+    {
+        $this->specialite = $specialite;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?string
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(string $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Matiere>
      */
-    public function getMatieres(): Collection
+    public function getMatiers(): Collection
     {
-        return $this->matieres;
+        return $this->matiers;
     }
 
-    public function addMatiere(Matiere $matiere): self
+    public function addMatier(Matiere $matier): self
     {
-        if (!$this->matieres->contains($matiere)) {
-            $this->matieres->add($matiere);
-            $matiere->addEnseignant($this);
+        if (!$this->matiers->contains($matier)) {
+            $this->matiers->add($matier);
         }
 
         return $this;
     }
 
-    public function removeMatiere(Matiere $matiere): self
+    public function removeMatier(Matiere $matier): self
     {
-        if ($this->matieres->removeElement($matiere)) {
-            $matiere->removeEnseignant($this);
-        }
+        $this->matiers->removeElement($matier);
 
         return $this;
     }

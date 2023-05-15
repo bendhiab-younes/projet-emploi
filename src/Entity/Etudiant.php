@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EtudiantRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant extends User
@@ -14,23 +13,22 @@ class Etudiant extends User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'etudiants')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Classe $classe = null;
+    #[ORM\Column(length: 255)]
+    private ?string $departement = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getClasse(): ?Classe
+    public function getDepartement(): ?string
     {
-        return $this->classe;
+        return $this->departement;
     }
 
-    public function setClasse(?Classe $classe): self
+    public function setDepartement(string $departement): self
     {
-        $this->classe = $classe;
+        $this->departement = $departement;
 
         return $this;
     }

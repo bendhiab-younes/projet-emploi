@@ -18,9 +18,6 @@ class Classe
     #[ORM\Column(length: 255)]
     private ?string $nomClasse = null;
 
-    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Etudiant::class, orphanRemoval: true)]
-    private Collection $etudiants;
-
     #[ORM\ManyToMany(targetEntity: Matiere::class, inversedBy: 'classes')]
     private Collection $matieres;
 
@@ -29,7 +26,6 @@ class Classe
 
     public function __construct()
     {
-        $this->etudiants = new ArrayCollection();
         $this->matieres = new ArrayCollection();
         $this->seances = new ArrayCollection();
     }
@@ -47,36 +43,6 @@ class Classe
     public function setNomClasse(string $nomClasse): self
     {
         $this->nomClasse = $nomClasse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Etudiant>
-     */
-    public function getEtudiants(): Collection
-    {
-        return $this->etudiants;
-    }
-
-    public function addEtudiant(Etudiant $etudiant): self
-    {
-        if (!$this->etudiants->contains($etudiant)) {
-            $this->etudiants->add($etudiant);
-            $etudiant->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEtudiant(Etudiant $etudiant): self
-    {
-        if ($this->etudiants->removeElement($etudiant)) {
-            // set the owning side to null (unless already changed)
-            if ($etudiant->getClasse() === $this) {
-                $etudiant->setClasse(null);
-            }
-        }
 
         return $this;
     }

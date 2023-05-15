@@ -21,20 +21,20 @@ class Matiere
     #[ORM\Column]
     private ?bool $tp = null;
 
-    #[ORM\ManyToMany(targetEntity: Enseignant::class, inversedBy: 'matieres')]
-    private Collection $enseignant;
-
     #[ORM\OneToMany(mappedBy: 'matiere', targetEntity: Seance::class, orphanRemoval: true)]
     private Collection $seances;
 
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'matieres')]
     private Collection $classes;
 
+    #[ORM\ManyToMany(targetEntity: Enseignant::class, mappedBy: 'matiers')]
+    private Collection $enseignants;
+
     public function __construct()
     {
-        $this->enseignant = new ArrayCollection();
         $this->seances = new ArrayCollection();
         $this->classes = new ArrayCollection();
+        $this->enseignants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,30 +66,7 @@ class Matiere
         return $this;
     }
 
-    /**
-     * @return Collection<int, Enseignant>
-     */
-    public function getEnseignant(): Collection
-    {
-        return $this->enseignant;
-    }
-
-    public function addEnseignant(Enseignant $enseignant): self
-    {
-        if (!$this->enseignant->contains($enseignant)) {
-            $this->enseignant->add($enseignant);
-        }
-
-        return $this;
-    }
-
-    public function removeEnseignant(Enseignant $enseignant): self
-    {
-        $this->enseignant->removeElement($enseignant);
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection<int, Seance>
      */
@@ -142,6 +119,33 @@ class Matiere
     {
         if ($this->classes->removeElement($class)) {
             $class->removeMatiere($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Enseignant>
+     */
+    public function getEnseignants(): Collection
+    {
+        return $this->enseignants;
+    }
+
+    public function addEnseignant(Enseignant $enseignant): self
+    {
+        if (!$this->enseignants->contains($enseignant)) {
+            $this->enseignants->add($enseignant);
+            $enseignant->addMatier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnseignant(Enseignant $enseignant): self
+    {
+        if ($this->enseignants->removeElement($enseignant)) {
+            $enseignant->removeMatier($this);
         }
 
         return $this;
