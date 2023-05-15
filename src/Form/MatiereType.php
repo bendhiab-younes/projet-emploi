@@ -15,6 +15,7 @@ class MatiereType extends AbstractType
             ->add('nomMatiere')
             ->add('tp')
             ->add('classes')
+            ->add('enseignants')
         ;
     }
 
