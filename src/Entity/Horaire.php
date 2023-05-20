@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SalleRepository;
+use App\Repository\HoraireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SalleRepository::class)]
-class Salle
+#[ORM\Entity(repositoryClass: HoraireRepository::class)]
+class Horaire
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,16 +16,12 @@ class Salle
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nomSalle = null;
+    private ?string $heureDebut = null;
 
-    #[ORM\Column]
-    private ?bool $labo = null;
+    #[ORM\Column(length: 255)]
+    private ?string $heureFin = null;
 
-    #[ORM\ManyToOne(inversedBy: 'salles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Bloc $bloc = null;
-
-    #[ORM\OneToMany(mappedBy: 'salle', targetEntity: Seance::class, orphanRemoval:true)]
+    #[ORM\OneToMany(mappedBy: 'horaires', targetEntity: Seance::class)]
     private Collection $seances;
 
     public function __construct()
@@ -38,38 +34,26 @@ class Salle
         return $this->id;
     }
 
-    public function getNomSalle(): ?string
+    public function getHeureDebut(): ?string
     {
-        return $this->nomSalle;
+        return $this->heureDebut;
     }
 
-    public function setNomSalle(string $nomSalle): self
+    public function setHeureDebut(string $heureDebut): self
     {
-        $this->nomSalle = $nomSalle;
+        $this->heureDebut = $heureDebut;
 
         return $this;
     }
 
-    public function isLabo(): ?bool
+    public function getHeureFin(): ?string
     {
-        return $this->labo;
+        return $this->heureFin;
     }
 
-    public function setLabo(bool $labo): self
+    public function setHeureFin(string $heureFin): self
     {
-        $this->labo = $labo;
-
-        return $this;
-    }
-
-    public function getBloc(): ?Bloc
-    {
-        return $this->bloc;
-    }
-
-    public function setBloc(?Bloc $bloc): self
-    {
-        $this->bloc = $bloc;
+        $this->heureFin = $heureFin;
 
         return $this;
     }
@@ -86,7 +70,7 @@ class Salle
     {
         if (!$this->seances->contains($seance)) {
             $this->seances->add($seance);
-            $seance->setSalle($this);
+            $seance->setHoraires($this);
         }
 
         return $this;
@@ -96,17 +80,16 @@ class Salle
     {
         if ($this->seances->removeElement($seance)) {
             // set the owning side to null (unless already changed)
-            if ($seance->getSalle() === $this) {
-                $seance->setSalle(null);
+            if ($seance->getHoraires() === $this) {
+                $seance->setHoraires(null);
             }
         }
 
         return $this;
     }
 
-
     public function __toString()
     {
-        return $this->nomSalle;
+        return "$this->heureDebut -> $this->heureFin  ";
     }
 }

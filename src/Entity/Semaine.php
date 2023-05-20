@@ -88,4 +88,9 @@ class Semaine
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->numSemaine;
+    }
 }

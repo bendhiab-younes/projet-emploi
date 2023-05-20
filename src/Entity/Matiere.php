@@ -27,14 +27,10 @@ class Matiere
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'matieres')]
     private Collection $classes;
 
-    #[ORM\ManyToMany(targetEntity: Enseignant::class, mappedBy: 'matiers')]
-    private Collection $enseignants;
-
     public function __construct()
     {
         $this->seances = new ArrayCollection();
         $this->classes = new ArrayCollection();
-        $this->enseignants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,30 +120,8 @@ class Matiere
         return $this;
     }
 
-    /**
-     * @return Collection<int, Enseignant>
-     */
-    public function getEnseignants(): Collection
+    public function __toString()
     {
-        return $this->enseignants;
-    }
-
-    public function addEnseignant(Enseignant $enseignant): self
-    {
-        if (!$this->enseignants->contains($enseignant)) {
-            $this->enseignants->add($enseignant);
-            $enseignant->addMatier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEnseignant(Enseignant $enseignant): self
-    {
-        if ($this->enseignants->removeElement($enseignant)) {
-            $enseignant->removeMatier($this);
-        }
-
-        return $this;
+        return $this->nomMatiere;
     }
 }

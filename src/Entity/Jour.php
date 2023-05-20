@@ -15,9 +15,9 @@ class Jour
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $nomJour = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $nomJour = null;
 
     #[ORM\ManyToOne(inversedBy: 'jours')]
     #[ORM\JoinColumn(nullable: false)]
@@ -36,12 +36,12 @@ class Jour
         return $this->id;
     }
 
-    public function getNomJour(): ?\DateTimeInterface
+    public function getNomJour(): ?string
     {
         return $this->nomJour;
     }
 
-    public function setNomJour(\DateTimeInterface $nomJour): self
+    public function setNomJour(string $nomJour): self
     {
         $this->nomJour = $nomJour;
 
@@ -88,5 +88,10 @@ class Jour
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nomJour;
     }
 }

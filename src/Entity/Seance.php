@@ -29,6 +29,10 @@ class Seance
     #[ORM\JoinColumn(nullable: false)]
     private ?Classe $classe = null;
 
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Horaire $horaires = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +82,18 @@ class Seance
     public function setClasse(?Classe $classe): self
     {
         $this->classe = $classe;
+
+        return $this;
+    }
+
+    public function getHoraires(): ?Horaire
+    {
+        return $this->horaires;
+    }
+
+    public function setHoraires(?Horaire $horaires): self
+    {
+        $this->horaires = $horaires;
 
         return $this;
     }

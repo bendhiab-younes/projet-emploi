@@ -17,18 +17,11 @@ class MatiereFixtures extends Fixture
          $matiere->setTp(rand(0,1));
          $manager->persist($matiere);
         }
-        $manager->flush();
-    }
-}
-class ClasseFixtures extends Fixture
-{
-    public function load(ObjectManager $manager): void
-    {
         for ($i = 0; $i < 10; $i++) {
-         $classe = new Classe();
-         $classe->setNomClasse("Classe".$i);
-         $manager->persist($classe);
-        }
+            $classe = new Classe();
+            $classe->setNomClasse("Classe".$i);
+            $manager->persist($classe);
+           }
         $manager->flush();
     }
 }
