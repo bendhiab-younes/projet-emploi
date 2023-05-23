@@ -16,17 +16,26 @@
                     <th>{{ jour.nomJour}}</th>
                 {% endfor %}
             <tr> 
-            {% for heur in horaires %}
-                <tr>
-                    <th>{{ heur}}</th>
-                    {% for seance in seances %}
-                            <td> <table class="table"><tr><td>{{seance.matiere}}<br>{{seance.salle}}</td></tr></table></td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}     
         </thead>
         <tbody>
+                {% for heur in horaires %}
+                    <tr>
+                        <th>{{heur}}</th>
+                        {% for seance in seances %}
+                            {% if seance.horaires==heur %}
+                                {% for jour in jours %}
+                                    {% if seance.jour==jour%}
+                                        <td> {{seance.matiere}}<br>{{seance.salle}}</td>  
+                                    {% else %}
+                                        <td></td>
+
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
         </tbody>
-    </table>
+</table>
 
 {% endblock %}
