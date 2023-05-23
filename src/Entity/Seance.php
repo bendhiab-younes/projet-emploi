@@ -97,4 +97,9 @@ class Seance
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "$this->horaires  $this->classe  $this->matiere  $this->salle  $this->jour ";
+    }
 }

@@ -16,6 +16,7 @@
         {% for seance in seances %}
             <tr>
                 <td>{{ seance.id }}</td>
+                <td> <table class="table"><tr>{{seance.jour}}</tr><tr><td>{{seance.horaires}}</td><td>{{seance.matiere}}<br>{{seance.salle}}</td></tr></table></td>
                 <td>
                     <a href="{{ path('app_seance_show', {'id': seance.id}) }}">show</a>
                     <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>

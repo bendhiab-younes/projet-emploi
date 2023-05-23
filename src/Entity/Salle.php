@@ -107,6 +107,6 @@ class Salle
 
     public function __toString()
     {
-        return $this->nomSalle;
+        return "$this->bloc$this->nomSalle";
     }
 }
