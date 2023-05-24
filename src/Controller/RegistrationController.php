@@ -15,13 +15,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register', methods: ['GET'])]
-    public function register(UserRepository $userrep, Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/register', name: 'app_register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-        $users = $userrep->findByRole("ROLE_USER");
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -41,18 +40,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'users'=> $users
         ]);
     }
 
-    #[Route('/{id}', name: 'app_regiter_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
-            
-        }
-
-        return $this->redirectToRoute('app_register', [], Response::HTTP_SEE_OTHER);
-    }
 }
