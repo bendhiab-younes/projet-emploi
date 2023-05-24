@@ -7,13 +7,19 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+{% for classe in classes %}
+<br>
+<h4>{{classe}}</h4>
+{% for sem in semaines %}
 <table class="table">
         <thead>
 
             <tr>
             <td></td>
                 {% for jour in jours %}
+                    {% if jour.semaine==sem %}
                     <th>{{ jour.nomJour}}</th>
+                    {% endif %}
                 {% endfor %}
             <tr> 
         </thead>
@@ -21,21 +27,22 @@
                 {% for heur in horaires %}
                     <tr>
                         <th>{{heur}}</th>
+                        {% for jour in jours %}
                         {% for seance in seances %}
-                            {% if seance.horaires==heur %}
-                                {% for jour in jours %}
-                                    {% if seance.jour==jour%}
-                                        <td> {{seance.matiere}}<br>{{seance.salle}}</td>  
-                                    {% else %}
-                                        <td></td>
-
+                            {% if seance.horaires==heur and seance.classe==classe %}
+                                
+                                    {% if seance.jour==jour and seance.jour.semaine==sem%}
+                                        <td> {{seance.matiere}}<br>{% if seance.matiere.tp== true %}TP{% else %}Cours{% endif %}<br>{{seance.salle}}</td>  
+                                    
                                     {% endif %}
-                                {% endfor %}
+                                
                             {% endif %}
+                        {% endfor %}
                         {% endfor %}
                     </tr>
                 {% endfor %}
         </tbody>
 </table>
-
+{% endfor %}
+{% endfor %}
 {% endblock %}

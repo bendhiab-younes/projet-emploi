@@ -58,10 +58,11 @@
 
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('ROLE_ADMIN') %}
        
             <nav id="navbar" class="navbar order-last order-lg-0">
               <ul>
-                <li><a href="{{path('app_home')}}">Enseignets</a></li>
+                <li><a href="{{path('app_register')}}">Utilisateurs</a></li>
                 <li><a href="{{path('app_classe_index')}}">Classes</a></li>
                 <li><a href="{{path('app_salle_index')}}">Salles</a></li>
                 <li><a href="{{path('app_bloc_index')}}">Bloc</a></li>
@@ -99,6 +100,7 @@
                 </li>
                
               </ul>
+              {% endif %}
               <i class="bi bi-list mobile-nav-toggle"></i>
               <a class="nav-link" href="{{ path('app_logout')}}">LogOut</a>
             </nav><!-- .navbar -->

@@ -18,5 +18,62 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    <br>
+    {% if user.{{ is_granted('ROLE_ENSEINGANT') }} %}
+        <h4><th>Enseingants</th></h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>email</th>
+                    <th>nom</th>
+                    <th>prenom</th>
+                    <th>CIN</th>
+                    <th>departement</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.nom}}</td>
+                    <td>{{ user.prenom}}</td>
+                    <td>{{ user.CIN}}</td>
+                    <td>{{ user.departement}}</td>
+                    <td>
+                        <a href="{{ path('app_register_delete', {'id': user.id}) }}">delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    {% elseif user.{{ is_granted('ROLE_USER') }} %}
+        <h4><th>Etudiants</th></h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>email</th>
+                    <th>nom</th>
+                    <th>prenom</th>
+                    <th>CIN</th>
+                    <th>departement</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.nom}}</td>
+                    <td>{{ user.prenom}}</td>
+                    <td>{{ user.CIN}}</td>
+                    <td>{{ user.departement}}</td>
+                    <td>
+                        <a href="{{ path('app_register_delete', {'id': user.id}) }}">delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
 
