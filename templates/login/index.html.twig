@@ -4,16 +4,47 @@
 {% if error %}
 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
+
+
+
+
+
+<div class="container">
+<div class="container py-5 h-100">
+<div class="row d-flex align-items-center justify-content-center h-100">
+<div class="col-md-8 col-lg-7 col-xl-6">
+<img src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=740&t=st=1685107353~exp=1685107953~hmac=fe590ac3d8c61a97a9f44101496d9a2ffa22fdf85e5349167b461841cea422ed"
+class="img-fluid" alt="Phone image">
+</div>
+<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 <form action="{{ path('app_login') }}" method="post">
-<label for="username">Email:</label> <br>
-<input type="text" id="username" name="_username" value="{{ last_username }}"/><br>
-<label for="password">Password:</label><br>
-<input type="password" id="password" name="_password"/><br>
-{# If you want to control the URL the user is redirected to on success
-<input type="hidden" name="_target_path" value="/account"/> #}
-<button type="submit">login</button>
 
-<p></p>
+<h1 class="logo me-auto"><a href="{{path('app_login')}}">Emploi ISET</a></h1>
+<br><br>
+<!-- Email input -->
+<div class="form-outline mb-4">
+<input type="email" id="username" class="form-control form-control-lg" name="_username" value="{{ last_username }}"/>
+<label class="form-label" for="username">Email address</label>
+</div>
+<!-- Password input -->
+<div class="form-outline mb-4">
+<input type="password" id="password" class="form-control form-control-lg" name="_password"/>
+<label class="form-label" for="password">Password</label>
+</div>
 
+<!-- Submit button -->
+<button type="submit" class="btn btn-success btn-lg btn-block">Log In</button>
+<input type="hidden" name="app_home" value="/account"/> 
 </form>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
+
+
+
+
+
+
+

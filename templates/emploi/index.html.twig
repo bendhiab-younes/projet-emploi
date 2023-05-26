@@ -7,16 +7,18 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-<form method="GET">
-    <h5>nom de classe</h5>
-    <select name="filter">
+<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+<form method="GET" >
+    <div class="form-outline mb-4"><h5>Choisir nom de classe</h5>
+    <select name="filter" class="form-control form-control-lg">
         <option value="">none</option>
         {% for classe in classes %}
             <option value="{{ classe.nomClasse }}" {% if app.request.query.get('filter') == classe.nomClasse %}selected{% endif %}>{{ classe.nomClasse }}</option>
         {% endfor %}
-    </select>
-    <input type="submit" value="Filter">
+    </select><br>
+    <input class="btn btn-success btn-block" type="submit" value="Filter" ></div>
 </form>
+</div>
 {% if app.request.query.get('filter') %}
     {% set filter = app.request.query.get('filter') %}
     {% for classe in classes %}
