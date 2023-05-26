@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230523131828 extends AbstractMigration
+final class Version20230526095816 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -30,11 +30,13 @@ final class Version20230523131828 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_DF7DFD0EDC304035 ON seance (salle_id)');
         $this->addSql('CREATE INDEX IDX_DF7DFD0E8F5EA509 ON seance (classe_id)');
         $this->addSql('CREATE INDEX IDX_DF7DFD0E8AF49C8B ON seance (horaires_id)');
+        $this->addSql('ALTER TABLE user ADD type VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE user DROP type');
         $this->addSql('ALTER TABLE seance DROP FOREIGN KEY FK_DF7DFD0EF46CD258');
         $this->addSql('ALTER TABLE seance DROP FOREIGN KEY FK_DF7DFD0E220C6AD0');
         $this->addSql('ALTER TABLE seance DROP FOREIGN KEY FK_DF7DFD0EDC304035');

@@ -9,6 +9,7 @@ use App\Repository\HoraireRepository;
 use App\Repository\SemaineRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EmploiController extends AbstractController

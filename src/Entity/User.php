@@ -41,6 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $departement = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,7 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
+        if($this->type=='enseingant')
+        $roles[] = 'ROLE_ENSEIGNANT';
+        elseif($this->type=='etudiant')
         $roles[] = 'ROLE_ETUDIANT';
+        elseif($this->type=='admin')
+        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
@@ -155,6 +163,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDepartement(string $departement): self
     {
         $this->departement = $departement;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
