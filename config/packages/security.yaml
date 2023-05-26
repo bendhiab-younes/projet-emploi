@@ -5,8 +5,8 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     role_hierarchy:
         ROLE_ETUDIANT: ROLE_USER
-        ROLE_ENSEIGNANT: ROLE_ETUDIANT
-        ROLE_ADMIN: [ROLE_ENSEIGNANT, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ENSEIGNANT: ROLE_USER
+        ROLE_ADMIN: [ROLE_ENSEIGNANT,ROLE_ETUDIANT ROLE_ALLOWED_TO_SWITCH]
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:

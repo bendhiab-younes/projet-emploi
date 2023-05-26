@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Classe;
 use App\Entity\User;
-use Doctrine\ORM\Query\Expr\Select;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -16,6 +17,13 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -29,6 +37,11 @@ class RegistrationFormType extends AbstractType
                     'Enseignant' => 'enseignant',
                     'Admin' => 'admin',
                 ],
+            ])
+            ->add('classe', ChoiceType::class, [
+                'choices' => $this->getClassChoices(),
+                'choice_value' => 'id',
+                'choice_label' => 'nomClasse',
             ])
             ->add('departement')
             ->add('agreeTerms', CheckboxType::class, [
@@ -64,5 +77,17 @@ class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    private function getClassChoices(): array
+    {
+        $classes = $this->entityManager->getRepository(Classe::class)->findAll();
+        $choices = [];
+
+        foreach ($classes as $classe) {
+            $choices[$classe->getNomClasse()] = $classe;
+        }
+
+        return $choices;
     }
 }
