@@ -5,18 +5,43 @@
 {% block body %}
     <h1>Seance</h1>
 
+    
+
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
                 <th>Id</th>
-                <td>{{ seance.id }}</td>
+                <th>Heure</th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>{{ seance.id }}</td>
+                <td> 
+                <table class="table">
+                    <tr>{{seance.jour}}</tr>
+                    <tr><td><a href="{{ path('app_horaire_edit', {'id': seance.id}) }}">{{seance.horaires}}</a></td>
+                        <td><a href="{{ path('app_matiere_edit', {'id': seance.id}) }}">{{seance.matiere}}</a><br>
+                        <a href="{{ path('app_salle_edit', {'id': seance.id}) }}">{{seance.salle}}</a></td>
+                    
+
+                    </tr>
+                    
+                </table></td><td></td>
+                
+            </tr>
+
         </tbody>
     </table>
 
-    <a href="{{ path('app_seance_index') }}">back to list</a>
 
-    <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>
+
+
+
+    <a href="{{ path('app_seance_index') }}"> Back to list</a>
+
 
     {{ include('seance/_delete_form.html.twig') }}
 {% endblock %}

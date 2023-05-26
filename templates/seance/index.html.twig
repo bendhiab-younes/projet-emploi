@@ -3,20 +3,31 @@
 {% block title %}Seance index{% endblock %}
 
 {% block body %}
-    <h1>Seance index</h1>
+    <h1>Liste des Seances</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>actions</th>
+                <th>Heure</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for seance in seances %}
             <tr>
                 <td>{{ seance.id }}</td>
-                <td> <table class="table"><tr>{{seance.jour}}</tr><tr><td>{{seance.horaires}}</td><td>{{seance.matiere}}<br>{{seance.salle}}</td></tr></table></td>
+                <td> 
+                <table class="table">
+                    <tr>{{seance.jour}}</tr>
+                    <tr><td>{{seance.horaires}}</td>
+                        <td>{{seance.matiere}}<br>
+                        {{seance.salle}}</td>
+                    
+
+                    </tr>
+                    
+                </table></td><td></td>
                 <td>
                     <a href="{{ path('app_seance_show', {'id': seance.id}) }}">show</a>
                     <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>

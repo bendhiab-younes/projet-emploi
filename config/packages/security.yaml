@@ -36,16 +36,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/matiere, roles: ROLE_ADMIN }
-         - { path: ^/classe, roles: ROLE_ADMIN }
-         - { path: ^/seance, roles: ROLE_ADMIN }
-         - { path: ^/horaire, roles: ROLE_ADMIN }
-         - { path: ^/register, roles: ROLE_ADMIN }
-         - { path: ^/jour, roles: ROLE_ADMIN }
-         - { path: ^/bloc, roles: ROLE_ADMIN }
-         - { path: ^/salle, roles: ROLE_ADMIN }
-         - { path: ^/semaine, roles: ROLE_ADMIN }
-         - { path: ^/semestre, roles: ROLE_ADMIN }
+        # - { path: ^/matiere, roles: ROLE_ADMIN }
+         #- { path: ^/classe, roles: ROLE_ADMIN }
+         #- { path: ^/seance, roles: ROLE_ADMIN }
+        # - { path: ^/horaire, roles: ROLE_ADMIN }
+         #- { path: ^/register, roles: ROLE_ADMIN }
+         #- { path: ^/jour, roles: ROLE_ADMIN }
+         #- { path: ^/bloc, roles: ROLE_ADMIN }
+         #- { path: ^/salle, roles: ROLE_ADMIN }
+         #- { path: ^/semaine, roles: ROLE_ADMIN }
+         #- { path: ^/semestre, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
          - { path: /login, roles: PUBLIC_ACCESS}
          
