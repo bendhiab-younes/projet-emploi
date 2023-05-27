@@ -5,7 +5,7 @@
 {% block body %}
     <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <form method="GET" >
-            <div class="form-outline mb-4"><h5>Choisir nom de classe</h5>
+            <div class="form-outline mb-4"><h5>Choisir nom de Type</h5>
                 <select name="filter" class="form-control form-control-lg">
                     <option value="">--select classe--</option>
                     <option value="etudiant" {% if app.request.query.get('filter') == "etudiant" %}selected{% endif %}>etudiant</option>
