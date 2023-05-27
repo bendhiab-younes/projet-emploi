@@ -48,34 +48,36 @@
             <!-- Uncomment below if you prefer to use an image logo -->
       
 
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
             <nav id="navbar" class="navbar order-last order-lg-0">
               <ul>
-                <li><a class="nav-link scrollto" href="{{ path('app_login')}}">Log In</a></li>
-              </ul>
-            </nav>
-            {% endif %}
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                  <li><a class="nav-link scrollto" href="{{ path('app_login')}}">Log In</a></li>
+                {% endif %}
+              
 
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-       
-            <nav id="navbar" class="navbar order-last order-lg-0">
-              <ul>
-                <li><a href="{{path('app_home')}}">Enseignets</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{path('app_register')}}">Utilisateurs</a></li>
                 <li><a href="{{path('app_classe_index')}}">Classes</a></li>
-                <li><a href="{{path('app_salle_index')}}">Salles</a></li>
-                <li><a href="{{path('app_bloc_index')}}">Bloc</a></li>
-      
-                
-               
-              </ul>
-              <i class="bi bi-list mobile-nav-toggle"></i>
 
-              <a class="btn-get-started" href="{{ path('app_logout')}}">LogOut</a>
-            <a href="{{path('app_emploi')}}" class="btn-get-started">Mon Emploi</a>
-            </nav><!-- .navbar -->
-            
-            
+                <li class="dropdown"><a href="#">
+                  <span>Salles</span> 
+                <i class="bi bi-chevron-down"></i></a>
+                  <ul>
+                    <li class="dropdown"><a href="{{path('app_salle_index')}}"><span>Salles</span> <i class="bi bi-chevron-right"></i></a>
+                    <li class="dropdown"><a href="{{path('app_bloc_index')}}"><span>Blocs</span> <i class="bi bi-chevron-right"></i></a>
+                  </ul>
+                </li>
+
+                <li><a href="{{path('app_horaire_index')}}">Horaire</a></li>
+                <li><a href="{{path('app_emploi')}}" class="btn-get-started">Liste Emploi</a></li>
+
+              {% endif %}
+
+            {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a class="btn-get-started" href="{{ path('app_logout')}}">LogOut</a></li>
             {% endif %}
+              </ul>
+          </nav><!-- .navbar -->
           </div>
         </header><!-- End Header -->
       
