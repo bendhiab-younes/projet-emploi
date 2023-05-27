@@ -25,4 +25,18 @@ class EmploiController extends AbstractController
             'classes' => $classeRepository->findAll(),
         ]);
     }
+
+    #[Route('/emploi/{id}', name: 'app_emploi_etudiant',methods: ['GET'])]
+    public function indexetudient($id,ClasseRepository $classeRepository, JourRepository $jourRepository, SeanceRepository $seanceRepository, HoraireRepository $horaireRepository, SemaineRepository $semaineRepository): Response
+    {
+
+        $classe = $classeRepository->find($id);
+        return $this->render('emploi/index_etudiant.html.twig', [
+            'jours' => $jourRepository->findAll(),
+            'horaires' => $horaireRepository->findAll(),
+            'seances' => $seanceRepository->findAll(),
+            'semaines' => $semaineRepository->findAll(),
+            'classe' => $classe,
+        ]);
+    }
 }

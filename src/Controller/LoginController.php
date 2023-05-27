@@ -13,8 +13,9 @@ class LoginController extends AbstractController
     public function index_login(AuthenticationUtils $authenticationUtils): Response
     {
 
-        $error = $authenticationUtils->getLastAuthenticationError();
-         $lastUsername = $authenticationUtils->getLastUsername();
+        $error = "invalide informations";
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -27,7 +28,17 @@ class LoginController extends AbstractController
         // controller can be blank: it will never be called!
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
+
+
+
+    
+  
+
 }
+
+
+
+
 
 class ProfileController extends AbstractController
 {
@@ -41,3 +52,5 @@ class ProfileController extends AbstractController
         return new Response('well hi there' .$user->getEmail());
     }
 }
+
+
