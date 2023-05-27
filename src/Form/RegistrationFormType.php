@@ -51,7 +51,14 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('departement')
+            ->add('departement',ChoiceType::class, [
+                'choices' => [
+                    'Informatique' => 'Informatique',
+                    'Mecanique' => 'Mecanique',
+                    'Electrique' => 'Electrique',
+                    'Managment' => 'Managment',
+                ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

@@ -16,16 +16,28 @@
             <option value="{{ classe.nomClasse }}" {% if app.request.query.get('filter') == classe.nomClasse %}selected{% endif %}>{{ classe.nomClasse }}</option>
         {% endfor %}
     </select><br>
-    <input class="btn btn-success btn-block" type="submit" value="Filter" ></div>
+
+    <select name="filter_semaine" class="form-control form-control-lg">
+        <option value="">--select semaine--</option>
+        {% for semaine in semaines %}
+            <option value="{{semaine.numSemaine}}" {% if app.request.query.get('filter_semaine') == semaine.numSemaine %}selected{% endif %}>{{ semaine.numSemaine }}</option>
+        {% endfor %}
+    </select><br>
+    <input class="btn btn-success btn-block" type="submit" value="Filter" >
+    </div>
 </form>
 </div>
-{% if app.request.query.get('filter') %}
+{% if app.request.query.get('filter') and app.request.query.get('filter_semaine')%}
     {% set filter = app.request.query.get('filter') %}
+    {% set filtersemaine = app.request.query.get('filter_semaine') %}
+    
     {% for classe in classes %}
         {% if classe.nomClasse == filter %}
             <br>
             <h4>{{ classe }}</h4>
+            
             {% for sem in semaines %}
+            {% if sem.numSemaine == filtersemaine %}
                 <table class="table">
                     <thead>
                         <tr>
@@ -64,6 +76,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                {%endif%}
             {% endfor %}
         {% endif %}
     {% endfor %}

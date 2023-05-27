@@ -6,14 +6,16 @@
     <h1>Register</h1>
     <p>Quel type d'utilisateur souhaitez-vous ajouter?</p>
 
-    <select id="userType">
+    <div class="form-outline mb-4">
+    <select id="userType" classe="form-control form-control form-control-lg"> 
         <option value="">Select an option</option>
         <option value="etudiant">Etudiant</option>
         <option value="enseignant">Enseignant</option>
         <option value="admin">Admin</option>
     </select>
+</div>
 
-    {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
         {{ form_row(registrationForm.nom) }}
@@ -28,7 +30,9 @@
         <div id="matieresField" style="display: none;">
             {{ form_row(registrationForm.matieres) }}
         </div>
+
         {{ form_row(registrationForm.departement) }}
+        
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -50,6 +54,6 @@
     </script>
     {{ form_row(registrationForm.agreeTerms) }}
     <br>
-    <button type="submit" class="btn">Register</button>
+    <button  type="submit" class="btn btn-success btn-block">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
