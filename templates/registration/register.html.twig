@@ -28,10 +28,7 @@
         <div id="matieresField" style="display: none;">
             {{ form_row(registrationForm.matieres) }}
         </div>
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-
+        {{ form_row(registrationForm.departement) }}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -51,4 +48,8 @@
             });
         });
     </script>
+    {{ form_row(registrationForm.agreeTerms) }}
+    <br>
+    <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
 {% endblock %}
