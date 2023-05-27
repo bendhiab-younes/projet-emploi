@@ -11,7 +11,7 @@
 <form method="GET" >
     <div class="form-outline mb-4"><h5>Choisir nom de classe</h5>
     <select name="filter" class="form-control form-control-lg">
-        <option value="">none</option>
+        <option value="">--select classe--</option>
         {% for classe in classes %}
             <option value="{{ classe.nomClasse }}" {% if app.request.query.get('filter') == classe.nomClasse %}selected{% endif %}>{{ classe.nomClasse }}</option>
         {% endfor %}

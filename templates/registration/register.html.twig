@@ -4,6 +4,14 @@
 
 {% block body %}
     <h1>Register</h1>
+    <p>Quel type d'utilisateur souhaitez-vous ajouter?</p>
+
+    <select id="userType">
+        <option value="">Select an option</option>
+        <option value="etudiant">Etudiant</option>
+        <option value="enseignant">Enseignant</option>
+        <option value="admin">Admin</option>
+    </select>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
@@ -11,49 +19,36 @@
         {{ form_row(registrationForm.nom) }}
         {{ form_row(registrationForm.prenom) }}
         {{ form_row(registrationForm.CIN) }}
-
         {{ form_row(registrationForm.type) }}
-        {% if registrationForm.type.vars.value == 'etudiant' %}
-            {{ form_row(registrationForm.classe) }}
-        {% endif %}
 
-        {{ form_row(registrationForm.departement) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <div id="classeField" style="display: none;">
+            {{ form_row(registrationForm.classe) }}
+        </div>
+
+        <div id="matieresField" style="display: none;">
+            {{ form_row(registrationForm.matieres) }}
+        </div>
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 
-    <br>
-
-    <h4>Enseignants</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>email</th>
-                <th>nom</th>
-                <th>prenom</th>
-                <th>CIN</th>
-                <th>departement</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-    <br>
-
-    <h4>Etudiants</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>email</th>
-                <th>nom</th>
-                <th>prenom</th>
-                <th>CIN</th>
-                <th>departement</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#userType').change(function() {
+                var selectedType = $(this).val();
+                
+                if (selectedType === 'etudiant') {
+                    $('#classeField').show();
+                    $('#matieresField').hide();
+                } else if (selectedType === 'enseignant') {
+                    $('#classeField').hide();
+                    $('#matieresField').show();
+                } else {
+                    $('#classeField').hide();
+                    $('#matieresField').hide();
+                }
+            });
+        });
+    </script>
 {% endblock %}

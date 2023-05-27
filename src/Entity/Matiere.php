@@ -27,14 +27,13 @@ class Matiere
     #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'matieres')]
     private Collection $classes;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'matieres')]
-    private Collection $Enseingants;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'matieres')]
+    private ?User $user = null;
 
     public function __construct()
     {
         $this->seances = new ArrayCollection();
         $this->classes = new ArrayCollection();
-        $this->Enseingants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,29 +128,14 @@ class Matiere
         return $this->nomMatiere;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getEnseingants(): Collection
+    public function getUser(): ?User
     {
-        return $this->Enseingants;
+        return $this->user;
     }
-
-    public function addEnseingant(User $enseingant): self
+    public function setUser(?User $user): self
     {
-        if (!$this->Enseingants->contains($enseingant)) {
-            $this->Enseingants->add($enseingant);
-            $enseingant->addMatiere($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEnseingant(User $enseingant): self
-    {
-        if ($this->Enseingants->removeElement($enseingant)) {
-            $enseingant->removeMatiere($this);
-        }
+        if($this->user->getType()=="enseingant")
+        $this->user = $user;
 
         return $this;
     }

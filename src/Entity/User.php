@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Classe $classe = null;
 
-    #[ORM\ManyToMany(targetEntity: Matiere::class, inversedBy: 'Enseingants')]
+    #[ORM\OneToMany(targetEntity: Matiere::class, mappedBy: 'Enseingants')]
     private Collection $matieres;
 
     public function __construct()
@@ -199,7 +199,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setClasse(?Classe $classe): self
     {
+        if($this->type=='enseingant')
+        $this->classe = null;
+        elseif($this->type=='etudiant')
         $this->classe = $classe;
+        elseif($this->type=='admin')
+        $roles[] = 'ROLE_ADMIN';
+        $this->classe = null;
 
         return $this;
     }
@@ -214,8 +220,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addMatiere(Matiere $matiere): self
     {
-        if (!$this->matieres->contains($matiere)) {
-            $this->matieres->add($matiere);
+        if($this->type=='enseingant'){
+            if (!$this->matieres->contains($matiere)) {
+                $this->matieres->add($matiere);
+            }
         }
 
         return $this;
