@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        if($this->type=='enseingant')
+        if($this->type=='enseignant')
         $roles[] = 'ROLE_ENSEIGNANT';
         elseif($this->type=='etudiant')
         $roles[] = 'ROLE_ETUDIANT';
@@ -199,7 +199,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setClasse(?Classe $classe): self
     {
-        if($this->type=='enseingant')
+        if($this->type=='enseignant')
         $this->classe = null;
         elseif($this->type=='etudiant')
         $this->classe = $classe;
@@ -220,7 +220,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addMatiere(Matiere $matiere): self
     {
-        if($this->type=='enseingant'){
+        if($this->type=='enseignant'){
             if (!$this->matieres->contains($matiere)) {
                 $this->matieres->add($matiere);
             }
