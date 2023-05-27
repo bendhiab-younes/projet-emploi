@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <form method="GET" >
+            <div class="form-outline mb-4"><h5>Choisir nom de classe</h5>
+                <select name="filter" class="form-control form-control-lg">
+                    <option value="">--select classe--</option>
+                    <option value="etudiant" {% if app.request.query.get('filter') == "etudiant" %}selected{% endif %}>etudiant</option>
+                    <option value="enseignant" {% if app.request.query.get('filter') == "enseignant" %}selected{% endif %}>enseignant</option>
+                    <option value="admin" {% if app.request.query.get('filter') == "admin" %}selected{% endif %}>admin</option>
+                </select>
+                <br>
+                <input class="btn btn-success btn-block" type="submit" value="Filter" >
+            </div>
+        </form>
+    </div>
+    {% if app.request.query.get('filter') %}
+    {% set filter = app.request.query.get('filter') %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>CIN</th>
+                <th>Departement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% if user.type==filter %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.type }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.CIN }}</td>
+                    <td>{{ user.departement }}</td>
+                    <td>
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_register') }}">Create new</a>
+{% endif %}
+{% endblock %}
