@@ -71,9 +71,11 @@
                 </li>
 
                 <li><a href="{{path('app_horaire_index')}}">Horaire</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_ENSEIGNANT') or is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                 <li><a href="{{path('app_emploi')}}" class="btn-get-started">Liste Emploi</a></li>
-
-              {% endif %}
+                {% endif %}
+              
 
             {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li><a class="btn-get-started" href="{{ path('app_logout')}}">LogOut</a></li>

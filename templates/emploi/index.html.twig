@@ -67,14 +67,16 @@
                     <tbody>
                         {% for heur in horaires %}
                             <tr>
-                                <th><a href="{{ path('app_horaire_show', {'id': heur.id}) }}">{{ heur }}</a></th>
+                                <th>{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}<a href="{{ path('app_horaire_show', {'id': heur.id}) }}">{% endif %}{{ heur }}</a></th>
                                 {% for jour in jours %}
                                     {% set seanceFound = false %}
                                     {% for seance in seances  %}
                                         {% if seance.jour == jour and seance.jour.semaine == semaine %}
                                             {% set seanceFound = true %}
                                             <td>
+                                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                                                 <a href="{{ path('app_seance_show', {'id': seance.id}) }}">
+                                                {% endif %}    
                                                     {{ seance.matiere }}<br>
                                                     {% if seance.matiere.tp == true %}
                                                         TP
