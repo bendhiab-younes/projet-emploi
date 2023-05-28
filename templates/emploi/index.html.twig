@@ -71,6 +71,10 @@
                                 {% for jour in jours %}
                                     {% set seanceFound = false %}
                                     {% for seance in seances  %}
+                                    <!-- tra fih el bostagi eli ta7ti zidou this seance.horarie == heur and that solves it but first
+                                    u need to change the seance format and all the related things as followed:
+                                    horarie become a single value not arraycollection so in other words one to one or something then you fix the controllers and fixtures if needed
+                                    and this should more or less work if not then.... oskot oskot 7ot sob3ek wou chem     -->
                                         {% if seance.jour == jour and seance.jour.semaine == semaine %}
                                             {% set seanceFound = true %}
                                             <td>
@@ -99,7 +103,6 @@
             {% endif %}
         {% endif %}
     {% endfor %}
-
     {% if not semaineFound or not classeFound %}
         <p>No results found for the selected filters.</p>
     {% endif %}
