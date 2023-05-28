@@ -134,8 +134,11 @@ class Matiere
     }
     public function setUser(?User $user): self
     {
-        if($user->getType()=="enseignant")
-        $this->user = $user;
+        if ($user->getType() == "enseignant") {
+            $this->user = $user;
+        } else {
+            $this->user = null;
+        }
 
         return $this;
     }

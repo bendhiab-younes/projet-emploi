@@ -8,42 +8,57 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-<form method="GET" >
-    <div class="form-outline mb-4"><h5>Choisir nom de classe</h5>
-    <select name="filter" class="form-control form-control-lg">
-        <option value="">--select classe--</option>
-        {% for classe in classes %}
-            <option value="{{ classe.nomClasse }}" {% if app.request.query.get('filter') == classe.nomClasse %}selected{% endif %}>{{ classe.nomClasse }}</option>
-        {% endfor %}
-    </select><br>
+    <form method="GET">
+        <div class="form-outline mb-4">
+            <h5>Choisir nom de classe</h5>
+            <select name="filter" class="form-control form-control-lg">
+                <option value="">--select classe--</option>
+                {% for classe in classes %}
+                    <option value="{{ classe.nomClasse }}" {% if app.request.query.get('filter') == classe.nomClasse %}selected{% endif %}>{{ classe.nomClasse }}</option>
+                {% endfor %}
+            </select><br>
 
-    <select name="filter_semaine" class="form-control form-control-lg">
-        <option value="">--select semaine--</option>
-        {% for semaine in semaines %}
-            <option value="{{semaine.numSemaine}}" {% if app.request.query.get('filter_semaine') == semaine.numSemaine %}selected{% endif %}>{{ semaine.numSemaine }}</option>
-        {% endfor %}
-    </select><br>
-    <input class="btn btn-success btn-block" type="submit" value="Filter" >
-    </div>
-</form>
+            <select name="filter_semaine" class="form-control form-control-lg">
+                <option value="">--select semaine--</option>
+                {% for semaine in semaines %}
+                    <option value="{{ semaine.numSemaine }}" {% if app.request.query.get('filter_semaine') == semaine.numSemaine %}selected{% endif %}>{{ semaine.numSemaine }}</option>
+                {% endfor %}
+            </select><br>
+            <input class="btn btn-success btn-block" type="submit" value="Filter">
+        </div>
+    </form>
 </div>
-{% if app.request.query.get('filter') and app.request.query.get('filter_semaine')%}
+
+{% if app.request.query.get('filter') and app.request.query.get('filter_semaine') %}
     {% set filter = app.request.query.get('filter') %}
     {% set filtersemaine = app.request.query.get('filter_semaine') %}
+
+    {% set semaineFound = false %}
+    {% set classeFound = false %}
     
     {% for classe in classes %}
         {% if classe.nomClasse == filter %}
+            {% set classeFound = true %}
             <br>
             <h4>{{ classe }}</h4>
-            
-            {% for sem in semaines %}
-            {% if sem.numSemaine == filtersemaine %}
+
+            {% set semaineFiltered = [] %}
+            {% for semaine in semaines %}
+                {% if semaine.numSemaine == filtersemaine %}
+                    {% set semaineFiltered = semaineFiltered|merge([semaine]) %}
+                {% endif %}
+            {% endfor %}
+
+            {% if semaineFiltered|length > 0 %}
+                {% set semaineFound = true %}
+                {% set semaine = semaineFiltered[0] %}
+
                 <table class="table">
                     <thead>
                         <tr>
                             <td></td>
                             {% for jour in jours %}
-                                {% if jour.semaine == sem %}
+                                {% if jour.semaine == semaine %}
                                     <th>{{ jour.nomJour }}</th>
                                 {% endif %}
                             {% endfor %}
@@ -54,31 +69,37 @@
                             <tr>
                                 <th><a href="{{ path('app_horaire_show', {'id': heur.id}) }}">{{ heur }}</a></th>
                                 {% for jour in jours %}
-                                    {% for seance in seances %}
-                                        {% if seance.horaires == heur and seance.classe == classe %}
-                                            {% if seance.jour == jour and seance.jour.semaine == sem %}
-                                                <td>
-                                                    <a href="{{ path('app_seance_show', {'id': seance.id}) }}">
-                                                        {{ seance.matiere }}<br>
-                                                        {% if seance.matiere.tp == true %}
-                                                            TP
-                                                        {% else %}
-                                                            Cours
-                                                        {% endif %}
-                                                        <br>{{ seance.salle }}
-                                                    </a>
-                                                </td>
-                                            {% endif %}
+                                    {% set seanceFound = false %}
+                                    {% for seance in seances  %}
+                                        {% if seance.jour == jour and seance.jour.semaine == semaine %}
+                                            {% set seanceFound = true %}
+                                            <td>
+                                                <a href="{{ path('app_seance_show', {'id': seance.id}) }}">
+                                                    {{ seance.matiere }}<br>
+                                                    {% if seance.matiere.tp == true %}
+                                                        TP
+                                                    {% else %}
+                                                        Cours
+                                                    {% endif %}
+                                                    <br>{{ seance.salle }}
+                                                </a>
+                                            </td>
                                         {% endif %}
                                     {% endfor %}
+                                    {% if not seanceFound %}
+                                        <td></td>
+                                    {% endif %}
                                 {% endfor %}
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                {%endif%}
-            {% endfor %}
+            {% endif %}
         {% endif %}
     {% endfor %}
+
+    {% if not semaineFound or not classeFound %}
+        <p>No results found for the selected filters.</p>
+    {% endif %}
 {% endif %}
 {% endblock %}

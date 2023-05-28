@@ -3,11 +3,50 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <div class="form-outline mb-4">
+        <select id="userType" class="form-control form-control-lg">
+            <option value="">Select an option</option>
+            <option value="etudiant" {% if user.type == 'etudiant' %}selected{% endif %}>Etudiant</option>
+            <option value="enseignant" {% if user.type == 'enseignant' %}selected{% endif %}>Enseignant</option>
+            <option value="admin" {% if user.type == 'admin' %}selected{% endif %}>Admin</option>
+        </select>
+    </div>
+        <h1>Edit User</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.CIN) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.departement) }}
+        <div id="classeField" {% if user.type != 'etudiant' %}style="display: none;"{% endif %}>
+            {{ form_row(form.classe) }}
+        </div>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+        <div id="matieresField" {% if user.type != 'enseignant' %}style="display: none;"{% endif %}>
+            {{ form_row(form.matieres) }}
+        </div>
+        {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+         <a href="{{ path('app_user_index') }}">back to list</a>
+        {{ form_end(form) }}
+        {{ include('user/_delete_form.html.twig') }}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#userType').change(function() {
+                var selectedType = $(this).val();
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+                if (selectedType === 'etudiant') {
+                    $('#classeField').show();
+                    $('#matieresField').hide();
+                } else if (selectedType === 'enseignant') {
+                    $('#classeField').hide();
+                    $('#matieresField').show();
+                } else {
+                    $('#classeField').hide();
+                    $('#matieresField').hide();
+                }
+            });
+        });
+    </script>
 {% endblock %}

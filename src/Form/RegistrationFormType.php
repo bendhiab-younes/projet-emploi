@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Classe;
 use App\Entity\Matiere;
-use App\Entity\User;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,9 +15,13 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -32,7 +38,14 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('nom')
             ->add('prenom')
-            ->add('CIN')
+            ->add('CIN', NumberType::class, [
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^\d{8,}$/',
+                        'message' => 'CIN should be at least 8 digits',
+                    ]),
+                ],
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Etudiant' => 'etudiant',
@@ -40,16 +53,15 @@ class RegistrationFormType extends AbstractType
                     'Admin' => 'admin',
                 ],
             ])
-            ->add('classe', ChoiceType::class, [
+            ->add('classe', EntityType::class, [
+                'class' => Classe::class,
                 'choices' => $this->getClassChoices(),
-                'choice_value' => 'id',
-                'choice_label' => 'nomClasse',
             ])
             ->add('matieres', EntityType::class, [
-                'class' => Matiere::class,
-                'choice_label' => 'nomMatiere',
-                'multiple' => true,
+                'class' => Matiere::class, 
+                'multiple' => true, 
                 'expanded' => true,
+                'by_reference' => false,
             ])
             ->add('departement',ChoiceType::class, [
                 'choices' => [
@@ -57,14 +69,6 @@ class RegistrationFormType extends AbstractType
                     'Mecanique' => 'Mecanique',
                     'Electrique' => 'Electrique',
                     'Managment' => 'Managment',
-                ],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [

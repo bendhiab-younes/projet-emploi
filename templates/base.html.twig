@@ -54,10 +54,12 @@
                   <li><a class="nav-link scrollto" href="{{ path('app_login')}}">Log In</a></li>
                 {% endif %}
               
-
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li><a href="{{path('app_user_index')}}">Utilisateurs</a></li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{path('app_register')}}">Utilisateurs</a></li>
                 <li><a href="{{path('app_classe_index')}}">Classes</a></li>
+                <li><a href="{{path('app_matiere_index')}}">Matiere</a></li>
 
                 <li class="dropdown"><a href="#">
                   <span>Salles</span> 

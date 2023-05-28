@@ -32,6 +32,15 @@ class RegistrationController extends AbstractController
             );
 
             $entityManager->persist($user);
+            
+            // Set matieres for Enseignant user
+            if ($user->getType() === 'enseignant') {
+                foreach ($user->getMatieres() as $matiere) {
+                    $matiere->setUser($user);
+                    $entityManager->persist($matiere);
+                }
+            }
+            
             $entityManager->flush();
             // Do anything else you need here, like send an email
 
@@ -43,4 +52,3 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
-

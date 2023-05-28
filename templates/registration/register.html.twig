@@ -7,31 +7,31 @@
     <p>Quel type d'utilisateur souhaitez-vous ajouter?</p>
 
     <div class="form-outline mb-4">
-    <select id="userType" classe="form-control form-control form-control-lg"> 
-        <option value="">Select an option</option>
-        <option value="etudiant">Etudiant</option>
-        <option value="enseignant">Enseignant</option>
-        <option value="admin">Admin</option>
-    </select>
-</div>
+        <select id="userType" class="form-control form-control form-control-lg"> 
+            <option value="">Select an option</option>
+            <option value="etudiant">Etudiant</option>
+            <option value="enseignant">Enseignant</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
 
-        {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.CIN) }}
-        {{ form_row(registrationForm.type) }}
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.CIN) }}
+    {{ form_row(registrationForm.type) }}
 
-        <div id="classeField" style="display: none;">
-            {{ form_row(registrationForm.classe) }}
-        </div>
+    <div id="classeField" class="d-none">
+        {{ form_row(registrationForm.classe) }}
+    </div>
 
-        <div id="matieresField" style="display: none;">
-            {{ form_row(registrationForm.matieres) }}
-        </div>
+    <div id="matieresField" class="d-none">
+        {{ form_row(registrationForm.matieres) }}
+    </div>
 
-        {{ form_row(registrationForm.departement) }}
+    {{ form_row(registrationForm.departement) }}
         
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -40,20 +40,19 @@
                 var selectedType = $(this).val();
                 
                 if (selectedType === 'etudiant') {
-                    $('#classeField').show();
-                    $('#matieresField').hide();
+                    $('#classeField').removeClass('d-none');
+                    $('#matieresField').addClass('d-none');
                 } else if (selectedType === 'enseignant') {
-                    $('#classeField').hide();
-                    $('#matieresField').show();
+                    $('#classeField').addClass('d-none');
+                    $('#matieresField').removeClass('d-none');
                 } else {
-                    $('#classeField').hide();
-                    $('#matieresField').hide();
+                    $('#classeField').addClass('d-none');
+                    $('#matieresField').addClass('d-none');
                 }
             });
         });
     </script>
-    {{ form_row(registrationForm.agreeTerms) }}
     <br>
-    <button  type="submit" class="btn btn-success btn-block">Register</button>
+    <button type="submit" class="btn btn-success btn-block">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
