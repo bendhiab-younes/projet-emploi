@@ -59,14 +59,14 @@
                         {% for jour in jours %}
                             {% set seanceFound = false %}
                             {% for seance in seances %}
-                                {% if seance.jour == jour and seance.jour.semaine == semaine and seance.horaire == heur %}
+                                {% if seance.jour == jour and seance.jour.semaine == semaine and seance.horaire == heur and seance.classe == classe%}
                                     {% set seanceFound = true %}
                                     <td>
                                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                                             <a href="{{ path('app_seance_show', {'id': seance.id}) }}">
                                         {% endif %}
                                         {{ seance.matiere }}<br>
-                                        {{seance.matiere.user.nom}} {{seance.matiere.user.prenom}}<br>
+                                        {% if seance.matiere.user %}{{seance.matiere.user.nom}} {{seance.matiere.user.prenom}}{% endif %}<br>
                                         {% if seance.matiere.tp == true %}
                                             TP
                                         {% else %}

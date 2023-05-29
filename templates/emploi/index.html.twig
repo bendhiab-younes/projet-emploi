@@ -85,10 +85,6 @@
 									{% for jour in jours %}
 										{% set seanceFound = false %}
 										{% for seance in seances  %}
-											<!-- tra fih el bostagi eli ta7ti zidou this seance.horarie == heur and that solves it but first
-											                                    u need to change the seance format and all the related things as followed:
-											                                    horarie become a single value not arraycollection so in other words one to one or something then you fix the controllers and fixtures if needed
-											                                    and this should more or less work if not then.... oskot oskot 7ot sob3ek wou chem     -->
 											{% if seance.jour == jour and seance.jour.semaine == semaine and seance.horaire == heur and seance.classe == classe %}
 												{% set seanceFound = true %}
 												<td>
@@ -96,6 +92,7 @@
 														<a href="{{ path('app_seance_show', {'id': seance.id}) }}">
 														{% endif %}
 														{{ seance.matiere }}<br>
+														{% if seance.matiere.user %}{{seance.matiere.user.nom}} {{seance.matiere.user.prenom}}{% endif %}<br>
 														{% if seance.matiere.tp == true %}
 															TP
 														{% else %}
