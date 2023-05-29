@@ -89,7 +89,7 @@
 											                                    u need to change the seance format and all the related things as followed:
 											                                    horarie become a single value not arraycollection so in other words one to one or something then you fix the controllers and fixtures if needed
 											                                    and this should more or less work if not then.... oskot oskot 7ot sob3ek wou chem     -->
-											{% if seance.jour == jour and seance.jour.semaine == semaine and seance.horaire == heur %}
+											{% if seance.jour == jour and seance.jour.semaine == semaine and seance.horaire == heur and seance.classe == classe %}
 												{% set seanceFound = true %}
 												<td>
 													{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
