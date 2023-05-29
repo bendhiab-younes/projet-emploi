@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SeanceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[ORM\Entity(repositoryClass: SeanceRepository::class)]
 class Seance
@@ -31,7 +32,9 @@ class Seance
 
     #[ORM\ManyToOne(inversedBy: 'seances')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Horaire $horaires = null;
+    private ?Horaire $horaire = null;
+
+    
 
     public function getId(): ?int
     {
@@ -86,20 +89,22 @@ class Seance
         return $this;
     }
 
-    public function getHoraires(): ?Horaire
-    {
-        return $this->horaires;
-    }
-
-    public function setHoraires(?Horaire $horaires): self
-    {
-        $this->horaires = $horaires;
-
-        return $this;
-    }
-
+    
+    
     public function __toString()
     {
-        return "$this->horaires  $this->classe  $this->matiere  $this->salle  $this->jour ";
+        return "$this->classe  $this->matiere  $this->salle  $this->jour ";
+    }
+
+    public function getHoraire(): ?Horaire
+    {
+        return $this->horaire;
+    }
+
+    public function setHoraire(?Horaire $horaire): self
+    {
+        $this->horaire = $horaire;
+
+        return $this;
     }
 }

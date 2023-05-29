@@ -69,7 +69,7 @@ class HoraireController extends AbstractController
     #[Route('/{id}', name: 'app_horaire_delete', methods: ['POST'])]
     public function delete(Request $request, Horaire $horaire, HoraireRepository $horaireRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$horaire->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $horaire->getId(), $request->request->get('_token'))) {
             $horaireRepository->remove($horaire, true);
         }
 

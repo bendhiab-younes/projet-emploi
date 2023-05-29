@@ -16,7 +16,7 @@ class SeanceType extends AbstractType
             ->add('jour')
             ->add('salle')
             ->add('classe')
-            ->add('horaires')
+            ->add('horaire')
         ;
     }
 

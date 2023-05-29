@@ -15,39 +15,41 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+
         $sem=new Semestre();
         $sem->setNumSemestre(1);
         $manager->persist($sem);
-        for ($i = 1; $i <5; $i++) {
-            $semain = new Semaine();
-            $semain->setNumSemaine($i);
-            $semain->setSemestre($sem);
-            $manager->persist($semain);
-            $days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+        for ($i = 1, $days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]; $i <13; $i++) {
+            $semaine = new Semaine();
+            $semaine->setNumSemaine($i);
+            $semaine->setSemestre($sem);
+            $manager->persist($semaine);
             for ($j=0; $j<sizeof($days); $j++)
             {
                 $jour=new Jour();
                 $jour->setNomJour($days[$j]);
-                $jour->setSemaine($semain);
+                $jour->setSemaine($semaine);
                 $manager->persist($jour);
             }
         }
-        $sem1=new Semestre();
-        $sem1->setNumSemestre(2);
-        $manager->persist($sem1);
-        for ($i = 1; $i <5; $i++) {
-            $semain = new Semaine();
-            $semain->setNumSemaine($i);
-            $semain->setSemestre($sem1);
-            $manager->persist($semain);
-            $days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
-            for($j=0; $j<sizeof($days); $j++){
+    
+        $sem=new Semestre();
+        $sem->setNumSemestre(2);
+        $manager->persist($sem);
+        for ($i = 14, $days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]; $i <29; $i++) {
+            $semaine = new Semaine();
+            $semaine->setNumSemaine($i);
+            $semaine->setSemestre($sem);
+            $manager->persist($semaine);
+            for ($j=0; $j<sizeof($days); $j++)
+            {
                 $jour=new Jour();
                 $jour->setNomJour($days[$j]);
-                $jour->setSemaine($semain);
+                $jour->setSemaine($semaine);
                 $manager->persist($jour);
             }
         }
+        
 
         $h1=new Horaire();
         $h1->setHeureDebut("8:30");

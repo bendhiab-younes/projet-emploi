@@ -45,7 +45,8 @@ class ClasseController extends AbstractController
     {
         return $this->render('classe/show.html.twig', [
             'classe' => $classe,
-            'etudiants'=>$classe->getUsers()
+            'etudiants'=>$classe->getUsers(),
+            'matieres'=>$classe->getMatieres(),
         ]);
     }
 

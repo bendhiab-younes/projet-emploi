@@ -11,17 +11,22 @@ class MatiereFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 10; $i++) {
-         $matiere = new Matiere();
-         $matiere->setNomMatiere("matiere"."$i");
-         $matiere->setTp(rand(0,1));
-         $manager->persist($matiere);
+        for ($i = 0, $matieres = ["ALGO", "BD", "UML", "Python", "Dev-Web", "Fondaments de Resaux", "Java", "SQL", "Rust", "Symfony", "Angular"]; $i < 10; $i++) {
+            $matiere = new Matiere();
+            $matiere->setNomMatiere($matieres[$i]);
+            $matiere->setTp(rand(0, 1));
+            $manager->persist($matiere);
         }
-        for ($i = 0; $i < 10; $i++) {
-            $classe = new Classe();
-            $classe->setNomClasse("Classe".$i);
-            $manager->persist($classe);
-           }
+
+
+        for ($i = 0; $i < 3; $i++) {
+            for ($j = 0; $j < 3; $j++) {
+                $specialites = ["DSI", "RSI", "MDW", "SEM"];
+                $classe = new Classe();
+                $classe->setNomClasse($specialites[$j] . (" ".$i + 1) . "." . ($j + 1));
+                $manager->persist($classe);
+            }
+        }
         $manager->flush();
     }
 }

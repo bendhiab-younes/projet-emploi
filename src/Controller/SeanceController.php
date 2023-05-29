@@ -45,6 +45,8 @@ class SeanceController extends AbstractController
     {
         return $this->render('seance/show.html.twig', [
             'seance' => $seance,
+            'matiere' => $seance->getMatiere(),
+            'horaire' => $seance->getHoraire(),
         ]);
     }
 
