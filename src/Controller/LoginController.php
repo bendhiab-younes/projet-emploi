@@ -13,7 +13,7 @@ class LoginController extends AbstractController
     public function index_login(AuthenticationUtils $authenticationUtils): Response
     {
 
-        $error = "invalide informations";
+        $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('login/index.html.twig', [
