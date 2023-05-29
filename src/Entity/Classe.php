@@ -15,7 +15,7 @@ class Classe
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,unique: true)]
     private ?string $nomClasse = null;
 
     #[ORM\ManyToMany(targetEntity: Matiere::class, inversedBy: 'classes')]

@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Salle{% endblock %}
+{% block title %}New Classe{% endblock %}
 
 {% block body %}
-    <h1>Create new Salle</h1>
+    <h1>Create new Classe</h1>
 
-    {{ include('salle/_form.html.twig') }}
+    {{ form_start(form) }}
 
-    <a href="{{ path('app_salle_index') }}">back to list</a>
+    {{ form_row(form.nomClasse) }}
+    {% if form.nomClasse.errors|length > 0 %}
+        <div class="alert alert-danger">
+            {{ form_errors(form.nomClasse) }}
+        </div>
+    {% endif %}
+
+    {# Display other form fields if any #}
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_classe_index') }}">back to list</a>
 {% endblock %}

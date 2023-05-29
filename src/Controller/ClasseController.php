@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Classe;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/classe')]
 class ClasseController extends AbstractController
@@ -25,19 +27,23 @@ class ClasseController extends AbstractController
     public function new(Request $request, ClasseRepository $classeRepository): Response
     {
         $classe = new Classe();
-        $form = $this->createForm(ClasseType::class, $classe);
-        $form->handleRequest($request);
+    $form = $this->createForm(ClasseType::class, $classe);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
+        try {
             $classeRepository->save($classe, true);
 
             return $this->redirectToRoute('app_classe_index', [], Response::HTTP_SEE_OTHER);
+        } catch (UniqueConstraintViolationException $e) {
+            $form->get('nomClasse')->addError(new FormError('CE classe existe deja!'));
         }
+    }
 
-        return $this->renderForm('classe/new.html.twig', [
-            'classe' => $classe,
-            'form' => $form,
-        ]);
+    return $this->renderForm('classe/new.html.twig', [
+        'classe' => $classe,
+        'form' => $form,
+    ]);
     }
 
     #[Route('/{id}', name: 'app_classe_show', methods: ['GET'])]
