@@ -23,8 +23,8 @@
                 <table class="table">
                     <tr>{{seance.jour}}</tr>
                     <tr><td><a href="{{ path('app_horaire_edit', {'id': seance.id}) }}">{{seance.horaire}}</a></td>
-                        <td><a href="{{ path('app_matiere_edit', {'id': seance.id}) }}">{{seance.matiere}}</a><br>
-                        <a href="{{ path('app_salle_edit', {'id': seance.id}) }}">{{seance.salle}}</a></td>
+                        <td>{{seance.matiere}}</a><br>
+                        {{seance.salle}}</a></td>
                     
 
                     </tr>

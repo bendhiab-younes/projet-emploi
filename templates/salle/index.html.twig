@@ -15,7 +15,6 @@
             </tr>
         </thead>
         <tbody>
-        {% for bloc in blocs %}
        
         {% for salle in salles %}
             <tr>
@@ -34,6 +33,5 @@
         {% endfor %}
         </tbody>
     </table>
-
     <a href="{{ path('app_salle_new') }}">Create new</a>
 {% endblock %}
